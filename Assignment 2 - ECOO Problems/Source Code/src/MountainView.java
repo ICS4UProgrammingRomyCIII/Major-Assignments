@@ -38,24 +38,23 @@ public class MountainView {
 	
 	// This function will calculate the slope to mountains left and right of the current mountain.
 	static int visible(int heights[], int mountain) {
-		int view = 0;																	// Set current view to 0;
-        double mInRange = -10000;														// Used to track the number of mountains in view. 
-        
-        for(int i = mountain + 1; i < heights.length; i++){
-            double slope = (heights[i] - heights[mountain]) / (double)(i - mountain);
-            if(slope > mInRange){
-            	mInRange = slope;
-                view++;
+		int view = 0;									// Set current view to 0;
+        double mInRange = -10000;								// Used to track the number of mountains in view (I need to use a large negative number in case of a large negative slope, i.e. a tall mountain to the left). 
+        for(int i = mountain + 1; i < heights.length; i++){					// This for loop will calculate the slope for all mountains to the RIGHT of the current mountain.
+            double slope = (heights[i] - heights[mountain]) / (double)(i - mountain);		// Calculate slope.
+            if(slope > mInRange){								// If the calculated slope is greater than mInRange...
+            	mInRange = slope;								// Change the value of mInRange to slope.
+                view++;										// Increment the view count.
             }
         }
-        mInRange = -10000;
-        for(int i = mountain-1; i >= 1; i--){
-            double slope = -(heights[i] - heights[mountain]) / (double)(i - mountain);
-            if(slope > mInRange) {
-            	mInRange = slope;
-                view++;
+        mInRange = -10000;									// Used to track the number of mountains in view (I need to use a large negative number in case of a large negative slope, i.e. a tall mountain to the left).
+        for(int i = mountain-1; i >= 1; i--){							// This for loop will calculate the slope for all mountains to the RIGHT of the current mountain.
+            double slope = -(heights[i] - heights[mountain]) / (double)(i - mountain);		// Calculate slope.
+            if(slope > mInRange) {								// If the calculated slope is greater than mInRange...
+            	mInRange = slope;								// Change the value of mInRange to slope.
+                view++;										// Increment the view count.
             }
         }
-        return view;
+        return view;										// Return the number of mountains the current mountain can see.
 	}
 }
