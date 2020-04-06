@@ -1,11 +1,6 @@
 #! /usr/bin/python3
 
 import sys, random     # All of the imported modules
-# sys is used to make terminal apps
-# pyperclip is used to copy and paste to and from the clipboard.
-# pprint was used for debugging (printing clean lists and dictionaries).
-# re is used to find patterns more effieciently.
-
 
 commands = [                              # This is a list of the available commands.
     'help  ------ >  shows this help dialog.',
