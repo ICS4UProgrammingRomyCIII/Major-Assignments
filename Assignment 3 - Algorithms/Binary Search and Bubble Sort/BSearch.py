@@ -1,8 +1,8 @@
-#! /usr/bin/python3
+#! /usr/bin/env python3
 
 import sys, random     # All of the imported modules
 
-commands = [                              # This is a list of the available commands.
+commands = [       # This is a list of the available commands.
     'help  ------ >  shows this help dialog.',
     'open  ------ >  opens the test case file in notepad.',
     'generate  -- >  generates a set of unsorted integers.',
@@ -54,9 +54,13 @@ def Help():
         print(command)          # Print the command.
     print(' ')                  # print and extra space.
 
-def OpenTestCaseFile():                 
-    import subprocess as sp                     # Subprocess is used to allow the program to open an external program.
-    sp.Popen(["notepad.exe", "testCase.txt"])   # As a subprocess, open the test case file in notepad.
+def OpenTestCaseFile():
+    import os as opnf
+    import subprocess as sb
+    if sys.platform == 'win32':         # If you're using Windows.
+        opnf.startfile('testCase.txt')      # Start the file in the default program.
+    elif sys.platform == 'darwin':      # If you're on MacOS.
+        sb.call(['open','testCase.txt']) # This is the only solution I found. I don't know if it works, cause I don't have MacOS.
 
 def ReadTextFile():
     """ This section of the sort is to get the contents of the text file """
@@ -66,6 +70,7 @@ def ReadTextFile():
     for lines in content:               # For the lines the content of the text file...     
         for nums in lines.split():      # For every number in the line...
             array.append(int(nums))     # Append the number to the array.
+    f.close()
     return array                        # Returns the array.
 
 def GenerateNumbers(amount, limit):
@@ -79,6 +84,7 @@ def GenerateNumbers(amount, limit):
         randomList.append(ranInt)           # Add the random int to the list.
         f.write(str(ranInt) + " ")          # Write the random int into the text file.
     print(randomList)                       # Print the list to the user.
+    f.close()
 
 def SortFile():
     f = open('testCase.txt', 'r+')   # Read and write to the test case file.
@@ -98,6 +104,7 @@ def SortFile():
         arr[position] = currentNum                                  # Change the current number.
     for num in arr:                                                 # For every number in the sorted array...
         f.write(str(num) + " ")                              # Write the number to the text file.
+    f.close()
 
 def BubbleSortFile():
     f = open('testCase.txt', 'r+')   # Read and write to the test case file.
@@ -111,6 +118,7 @@ def BubbleSortFile():
                 arr[j], arr[j+1] = arr[j+1], arr[j]
     for num in arr:                                                 # For every number in the sorted array...
         f.write(str(num) + " ")                              # Write the number to the text file.
+    f.close()
 
 def BinarySearch(x):
     arr = ReadTextFile()    # Reads the text file into an array.
